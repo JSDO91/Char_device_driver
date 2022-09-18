@@ -117,7 +117,7 @@ static unsigned int myCharDrv_poll(struct file *filp, struct poll_table_struct* 
 
     printk(KERN_NOTICE"[jaesun] poll_wait WaitQueue\r\n");
 
-//    poll_wait(filp, &WaitQueue_Read, wait);
+    //poll_wait(filp, &WaitQueue_Read, wait);
     wake_condition = 0;
     wait_event_interruptible(WaitQueue_Read,wake_condition);
 
@@ -141,7 +141,7 @@ static long myCharDrv_ioctl(struct file *filp, unsigned int cmd, unsigned long a
     
         case IOCTL_WRITE:
             printk(KERN_NOTICE"[jaesun] wake up WaitQueue\r\n");
-            // wake_up(&WaitQueue_Read);
+            //wake_up(&WaitQueue_Read);
             wake_condition = 1;
             wake_up_interruptible(&WaitQueue_Read);
             break;
@@ -220,9 +220,6 @@ static int __init char_device_driver_module_init(void)
 
         return PTR_ERR(dev_ret);
     }
-
-    // init_waitqueue_head(&WaitQueue_Read);
-    // printk("[jaesun] __init Done!!\r\n");
 
  	return 0;
 }
